@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="tests/php/bootstrap.php" colors="true" stderr="true">
+    <testsuites>
+        <testsuite name="Bookstore Unit Tests">
+            <directory>tests/php/Unit</directory>
+        </testsuite>
+        <testsuite name="Bookstore Integration Tests">
+            <directory>tests/php/Integration</directory>
+        </testsuite>
+        <testsuite name="Bookstore Endpoint Tests">
+            <directory>tests/php/Endpoint</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

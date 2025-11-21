@@ -1,0 +1,21 @@
+{
+  "name": "bookstore",
+  "version": "1.0.0",
+  "description": "Bookstore front-end scripts",
+  "scripts": {
+    "test:jest": "jest --runInBand",
+    "test": "npm run test:jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "whatwg-fetch": "^3.6.20"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "roots": [
+      "<rootDir>/tests/js"
+    ],
+    "moduleFileExtensions": ["js"],
+    "collectCoverage": false
+  }
+}

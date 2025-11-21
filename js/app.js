@@ -584,3 +584,30 @@ if (btnCancel) btnCancel.addEventListener("click", closeModal);
  * INITIAL LOAD
  ******************************************/
 window.addEventListener("load", () => loadBooks());
+
+// Export helpers for Jest-driven unit tests without impacting browser usage.
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    showBanner,
+    setLoading,
+    openModal,
+    closeModal,
+    showLibraryView,
+    showNewBookView,
+    loadBooks,
+    renderBooks,
+    openDetails,
+    openEditForm,
+    validateEditForm,
+    saveBook,
+    deleteBook,
+    showLoading,
+    hideLoading,
+    validateNewBookForm,
+    createBookFromPage,
+    setCurrentBooks: (books) => {
+      currentBooks = books;
+    },
+    getCurrentBooks: () => currentBooks,
+  };
+}
