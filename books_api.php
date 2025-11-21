@@ -3,42 +3,44 @@ session_start();
 header('Content-Type: application/json; charset=utf-8');
 require_once 'db.php';
 
-$role = $_SESSION['role'] ?? 'guest'; // 'user' or 'guest'
-$pdo  = getPDO();
-$action = $_GET['action'] ?? 'list';
+if (!defined('BOOKS_API_TEST_MODE')) {
+    $role = $_SESSION['role'] ?? 'guest'; // 'user' or 'guest'
+    $pdo  = getPDO();
+    $action = $_GET['action'] ?? 'list';
 
-switch ($action) {
-    case 'list':
-        listBooks($pdo);
-        break;
+    switch ($action) {
+        case 'list':
+            listBooks($pdo);
+            break;
 
-    case 'create':
-        if ($role !== 'user') {
-            echo json_encode(['success' => false, 'message' => 'Unauthorized (create)']);
-            exit;
-        }
-        createBook($pdo);
-        break;
+        case 'create':
+            if ($role !== 'user') {
+                echo json_encode(['success' => false, 'message' => 'Unauthorized (create)']);
+                exit;
+            }
+            createBook($pdo);
+            break;
 
-    case 'update':
-        if ($role !== 'user') {
-            echo json_encode(['success' => false, 'message' => 'Unauthorized (update)']);
-            exit;
-        }
-        updateBook($pdo);
-        break;
+        case 'update':
+            if ($role !== 'user') {
+                echo json_encode(['success' => false, 'message' => 'Unauthorized (update)']);
+                exit;
+            }
+            updateBook($pdo);
+            break;
 
-    case 'delete':
-        if ($role !== 'user') {
-            echo json_encode(['success' => false, 'message' => 'Unauthorized (delete)']);
-            exit;
-        }
-        deleteBook($pdo);
-        break;
+        case 'delete':
+            if ($role !== 'user') {
+                echo json_encode(['success' => false, 'message' => 'Unauthorized (delete)']);
+                exit;
+            }
+            deleteBook($pdo);
+            break;
 
-    default:
-        echo json_encode(['success' => false, 'message' => 'Invalid action']);
-        break;
+        default:
+            echo json_encode(['success' => false, 'message' => 'Invalid action']);
+            break;
+    }
 }
 
 function listBooks(PDO $pdo) {
