@@ -1,0 +1,580 @@
+/********************************************
+ * ATOMS: DESIGN TOKENS
+ ********************************************/
+:root {
+  /* Color palette */
+  --color-bg-body: #f5f5f5;
+  --color-bg-surface: #ffffff;
+  --color-bg-muted: #f0f0f0;
+  --color-bg-accent: #1976d2;
+  --color-bg-accent-soft: #e3f2fd;
+  --color-bg-banner-success: #4caf50;
+  --color-bg-banner-error: #d32f2f;
+  --color-border-subtle: #dddddd;
+  --color-border-soft: #e0e0e0;
+  --color-text-main: #333333;
+  --color-text-muted: #777777;
+  --color-text-inverse: #ffffff;
+
+  /* Typography scale */
+  --font-family-base: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 22px;
+
+  /* Spacing scale (atoms) */
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+
+  /* Radius & elevation */
+  --radius-pill: 999px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.15);
+
+  /* Layout */
+  --layout-sidebar-width: 240px;
+  --layout-max-width-modal: 640px;
+}
+
+/********************************************
+ * ATOMS: GLOBAL RESET & TYPOGRAPHY
+ ********************************************/
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-base);
+  background: var(--color-bg-body);
+  color: var(--color-text-main);
+}
+
+/********************************************
+ * ATOMS: UTILITIES
+ ********************************************/
+.hidden {
+  display: none !important;
+}
+
+.u-text-muted {
+  color: var(--color-text-muted);
+}
+
+.u-text-center {
+  text-align: center;
+}
+
+.u-flex {
+  display: flex;
+}
+
+.u-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/********************************************
+ * MOLECULES: BANNER / TOAST
+ ********************************************/
+.banner {
+  position: fixed;
+  top: var(--space-16);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-bg-banner-success);
+  color: var(--color-text-inverse);
+  padding: var(--space-8) var(--space-20);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-sm);
+  display: none;
+  z-index: 2000;
+}
+
+.banner.error {
+  background: var(--color-bg-banner-error);
+}
+/********************************************
+ * LOADING OVERLAY WITH SPINNER
+ ********************************************/
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: none;                 /* hidden by default */
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+
+.loading-content {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px 28px;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Spinner circle */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 4px solid #e0e0e0;
+  border-top-color: var(--color-bg-accent);
+  animation: spin 0.8s linear infinite;
+}
+
+.loading-text {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Spin animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/********************************************
+ * ORGANISM: APP SHELL (LAYOUT)
+ ********************************************/
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar (organism) */
+aside {
+  width: var(--layout-sidebar-width);
+  background: var(--color-bg-surface);
+  border-right: 1px solid var(--color-border-subtle);
+  padding: var(--space-24) var(--space-16);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.brand {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* Navigation (molecule) */
+nav a {
+  display: block;
+  margin: var(--space-16) 0;
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+  font-size: var(--font-size-md);
+}
+
+nav a.active {
+  color: var(--color-bg-accent);
+}
+
+.user-footer {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.user-footer a {
+  color: inherit;
+}
+
+/********************************************
+ * ORGANISM: MAIN AREA & LAYOUT
+ ********************************************/
+main {
+  flex: 1;
+  padding: var(--space-24) var(--space-32);
+  position: relative;
+}
+
+/********************************************
+ * MOLECULES: TOOLBAR, SEARCH, FILTER
+ ********************************************/
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-12);
+  margin-bottom: var(--space-16);
+}
+
+.search-input {
+  flex: 1;
+  max-width: 480px;
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-pill);
+  border: 1px solid #cccccc;
+  font-size: var(--font-size-md);
+}
+
+/* Chip group (filter pills) */
+.chip-group button,
+.btn {
+  border-radius: var(--radius-pill);
+  border: none;
+  padding: var(--space-8) var(--space-18);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.loading-overlay {
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.loading-overlay.fade-out {
+  opacity: 0;
+}
+
+/********************************************
+ * MOLECULES: BUTTONS 
+ ********************************************/
+.btn,
+.chip-group button {
+  border-radius: var(--radius-pill);
+  border: none;
+  padding: var(--space-12) var(--space-24); /* ⬆ More padding for larger buttons */
+  font-size: var(--font-size-md);          /* ⬆ Slightly larger font */
+  cursor: pointer;
+  font-weight: 600;                         /* ⬆ Modern bold button look */
+  transition: background 0.25s ease, transform 0.1s ease;
+  min-height: 40px;                         /* ✔ Google recommended minimum */
+  line-height: 1.2;
+}
+
+/* Primary Button */
+.btn-primary {
+  background: var(--color-bg-accent);
+  color: var(--color-text-inverse);
+  /* box-shadow: 0 3px 10px rgba(25, 118, 210, 0.3); */
+}
+
+.btn-primary:hover {
+  background: #0f63b8;
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: scale(0.97);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background: var(--color-bg-muted);
+  color: var(--color-text-main);
+  border: 1px solid var(--color-border-soft);
+}
+
+.btn-secondary:hover {
+  background: #dcdcdc;
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: scale(0.97);
+}
+
+/* Disabled state */
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.login-container form button {
+  width: 100%;
+  margin-bottom: var(--space-8);
+}
+
+
+/********************************************
+ * FILTER CHIPS (MODERN PILLS)
+ ********************************************/
+.chip-group button {
+  padding: var(--space-10) var(--space-20);
+  min-height: 40px;
+  font-weight: 500;
+  background: #e4e4e4;
+}
+
+.chip-group button.active {
+  background: #333;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+
+/********************************************
+ * ORGANISM: TABLE / BOOK LIST
+ ********************************************/
+#tableContainer {
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: var(--space-10) var(--space-12);
+  font-size: var(--font-size-sm);
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+th {
+  background: #fafafa;
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.icon-button {
+  cursor: pointer;
+  font-size: var(--font-size-md);
+}
+
+/********************************************
+ * MOLECULE: LOADING PANEL
+ ********************************************/
+#loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: var(--space-40) var(--space-60);
+  background: var(--color-bg-muted);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-lg);
+  display: none;
+}
+
+/********************************************
+ * ORGANISM: MODAL
+ ********************************************/
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1500;
+}
+
+.modal {
+  background: #f9f9f9;
+  border-radius: var(--radius-lg);
+  max-width: var(--layout-max-width-modal);
+  width: 90%;
+  padding: var(--space-24) var(--space-32) var(--space-20);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+
+.modal h2 {
+  margin-top: 0;
+  margin-bottom: var(--space-8);
+}
+
+.modal .close {
+  position: absolute;
+  top: var(--space-16);
+  right: var(--space-16);
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Modal content layout */
+.modal-row {
+  display: flex;
+  margin-bottom: var(--space-8);
+  font-size: var(--font-size-sm);
+}
+
+.modal-row label {
+  width: 32%;
+  color: var(--color-text-muted);
+}
+
+.modal-row span {
+  flex: 1;
+}
+
+.modal-actions {
+  margin-top: var(--space-18);
+  text-align: right;
+}
+
+/********************************************
+ * MOLECULE: FORM FIELDS
+ ********************************************/
+.form-field {
+  margin-bottom: var(--space-10);
+  font-size: var(--font-size-sm);
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: var(--space-2);
+}
+
+.form-field input {
+  width: 100%;
+  padding: var(--space-8) var(--space-10);
+  border-radius: var(--radius-sm);
+  border: 1px solid #cccccc;
+  font-size: var(--font-size-sm);
+  outline: none;
+}
+
+.form-field input:focus {
+  border-color: var(--color-bg-accent);
+  box-shadow: 0 0 0 1px var(--color-bg-accent-soft);
+}
+
+/* Validation message */
+.error-text {
+  color: var(--color-bg-banner-error);
+  font-size: var(--font-size-xs);
+  display: none;
+}
+
+/********************************************
+ * ORGANISM: AUTH SCREENS (LOGIN / REGISTER)
+ ********************************************/
+.login-container {
+  max-width: 360px;
+  margin: 80px auto;
+  padding: var(--space-24) var(--space-24) var(--space-20);
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+}
+
+.login-container h2 {
+  margin-top: 0;
+  margin-bottom: var(--space-16);
+  font-size: var(--font-size-lg);
+}
+
+.login-container form label {
+  display: block;
+  margin-bottom: var(--space-4);
+  font-size: var(--font-size-sm);
+}
+
+.login-container form input[type="text"],
+.login-container form input[type="password"] {
+  width: 100%;
+  padding: var(--space-8) var(--space-10);
+  border-radius: var(--radius-sm);
+  border: 1px solid #cccccc;
+  margin-bottom: var(--space-12);
+  font-size: var(--font-size-sm);
+}
+
+.login-container form button {
+  width: 100%;
+  margin-bottom: var(--space-8);
+}
+
+/* Alerts for auth */
+.alert {
+  padding: var(--space-8) var(--space-10);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-12);
+}
+
+.alert.error {
+  background: #ffebee;
+  color: #b71c1c;
+}
+
+.alert.success {
+  background: #e8f5e9;
+  color: #1b5e20;
+}
+
+/********************************************
+ * RESPONSIVE: MOBILE FIRST ENHANCEMENTS
+ ********************************************/
+@media (max-width: 768px) {
+  .app-shell {
+    flex-direction: column;
+  }
+
+  aside {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    padding: var(--space-12) var(--space-16);
+  }
+
+  aside nav {
+    display: flex;
+    gap: var(--space-16);
+  }
+
+  main {
+    padding: var(--space-16);
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input {
+    max-width: 100%;
+  }
+
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    font-size: var(--font-size-xs);
+  }
+
+  .login-container {
+    margin: 40px var(--space-16);
+  }
+}
